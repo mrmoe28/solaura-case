@@ -1,0 +1,12 @@
+# One name per line. Accepts "First Last", "Last, First", or just last name.
+# Example:
+# Jane Doe
+# Doe, John
+# Rodriguez
+
+# Add some sample names from the CSV to process
+Tom Whatley
+Nick Mueller
+Jerome Mitchell
+Kim Munie
+Linda Daniels

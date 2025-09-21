@@ -1,0 +1,125 @@
+You are an expert Python automation agent. Implement the following end-to-end system in this project. REQUIREMENT: everything runs locally with zero network calls. Output only what is specified.
+
+# Project Instructions: CSV → Selected Person Folders (+ Interactive PDFs)
+- Input: a CSV containing names, addresses, System ID, and optional fields (phone, email, company). CSV may include quotes, embedded commas, mixed headers, CRLF/LF.
+- Filtering (Inclusion): Only process names listed in config/names_filter.txt (accepts “First Last”, “Last, First”, or just last name). Case-insensitive; ignores commas and extra spaces.
+- Filtering (Exclusion): Always EXCLUDE any person whose name contains “Claudette” (case-insensitive), regardless of inclusion list. Maintain a denylist file at config/exclude_names.txt seeded with “Claudette”.
+- Output location: Place all generated person folders ONLY under output/selected_people/<slugified_full_name>/ (do not duplicate elsewhere).
+- Per-person outputs:
+  * README.md — human-friendly summary with bullet list and a table of fields, including System ID.
+  * data.json — normalized record with schema:
+    {
+      "full_name": "First Last",
+      "name": { "first": "", "middle": "", "last": "", "suffix": "" },
+      "company": "",
+      "email": "",
+      "phone": "",
+      "system_id": "",
+      "address": { "street": "", "city": "", "state": "", "postal_code": "", "country": "US" },
+      "source": { "csv_path": "", "row_number": 0, "raw": { "...": "..." } }
+    }
+  * contact.vcf — vCard 3.0 with N, FN, ORG, EMAIL, TEL, ADR; include NOTE containing “System ID: <value>”.
+  * address.txt — single-block mailing label: Name, Company, Street, City ST ZIP, Country; final line “System ID: <value>”.
+  * source_row.csv — original row only.
+  * person.pdf — INTERACTIVE, fillable PDF with AcroForm fields pre-populated yet editable: Full Name, First, Middle, Last, Suffix, Company, Email, Phone, System ID, Street, City, State, Postal Code, Country; include checkboxes: “Verified Contact”, “Mailed Packet”, “Follow-up Done”. Add a notes multiline textarea. The PDF must open with fields visible and editable in common readers.
+- Global artifacts:
+  * output/index.json and output/index.csv — indexes of all exported selected people (one row/object per person) including slug, full_name, system_id, email, phone, city, state, postal_code, path to folder, and timestamp.
+  * output/run.log — summary counts (total rows, matched by inclusion, excluded by denylist, exported, skipped for missing name, address parse warnings) and any row-level warnings.
+
+# Parsing & Normalization Rules
+- Name building:
+  * Prefer explicit first/last columns; else split a single full_name handling “Last, First [Middle]”.
+  * Title-case names; handle common particles sensibly (de, van, von, Mc/Mac).
+- Column aliasing (case-insensitive):
+  * Name: name, full_name → full_name
+  * First: first_name, given_name → first_name
+  * Last: last_name, surname, family_name → last_name
+  * Address (single): address, street_address, mailing_address → address
+  * Street: street
+  * City: city, town
+  * State/Province: state, province → state
+  * Postal: zip, zip_code, postal, postal_code → postal_code
+  * Email: email, e-mail
+  * Phone: phone, telephone, tel
+  * Company: company, organization, org
+  * System ID: system_id, systemid, id, record_id (prefer an explicit “system_id” if present)
+- Address parsing:
+  * If separate components exist, use them.
+  * Else if single “address” exists, try usaddress.tag; if unavailable or fails, fallback to regex heuristic to split street, city, state (2-letter if US), postal (5 or 5-4; allow alphanum for CA). Default country “US” if not present.
+  * Uppercase US state to 2-letter if possible; otherwise leave as-is.
+- Email lowercased; phone stripped of spaces and normalized to digits plus symbols; trim whitespace; collapse doubles.
+- Idempotent: Re-runs overwrite files for the same slug; no duplicates. Never delete anything outside output/.
+
+# Deliverables to create
+- scripts/split_people.py — CLI tool (Python 3.11).
+- requirements.txt — minimal set: pandas, python-slugify, unidecode, usaddress, reportlab, PyPDF2 (PyPDF2 optional; use if needed to finalize AcroForms).
+- config/names_filter.txt — Inclusion list (create if missing with sample comments).
+- config/exclude_names.txt — Denylist (create/ensure contains “Claudette” and treat as case-insensitive substring match).
+- scripts/run_split.sh — convenience runner.
+
+# CLI Spec
+python scripts/split_people.py \
+  --csv "data/contacts.csv" \
+  --names "config/names_filter.txt" \
+  --out "output"
+
+# Implementation details (MANDATORY)
+1) Create folders: data/, config/, scripts/, output/, project-instructions/.
+2) Write requirements.txt exactly with the libraries above (latest compatible; no network calls beyond pip that the user performs manually).
+3) Implement scripts/split_people.py:
+   - argparse for --csv (required), --names (required), --out (default "output")
+   - Load denylist from config/exclude_names.txt (create if missing and seed with “Claudette”).
+   - Load inclusion names list (ignore blanks/#); build a matcher that accepts “First Last”, “Last, First”, or last-name-only.
+   - Read CSV robustly with pandas (utf-8 errors="replace"); if header looks missing, auto-name columns col_1..N.
+   - Normalize headers to snake_case; build alias map per rules; compute full_name and split to parts.
+   - Exclusion first: if full_name contains any denylisted token (case-insensitive), skip and count as excluded.
+   - Inclusion next: include row if it matches inclusion names logic; otherwise skip (not an error).
+   - Parse address via components → usaddress → regex heuristic; normalize state/country.
+   - Build normalized JSON object including "system_id".
+   - slug = slugify(full_name, lowercase=True)
+   - person_dir = {out}/selected_people/{slug}
+   - Write files:
+     * data.json (pretty, UTF-8)
+     * source_row.csv (one-row dataframe)
+     * address.txt
+     * contact.vcf (vCard 3.0; include NOTE: "System ID: <value>")
+     * README.md with:
+       - Title = full_name
+       - Bullet summary (company, email, phone, system_id)
+       - Address block
+       - Table of normalized fields
+       - “Generated: <ISO timestamp>”
+     * person.pdf — create INTERACTIVE fillable PDF using reportlab (canvas + AcroForm):
+       - Page header “Contact Packet — <Full Name>”
+       - Text labels and AcroForm text fields for: Full Name, First, Middle, Last, Suffix, Company, Email, Phone, System ID, Street, City, State, Postal Code, Country
+       - Checkboxes: Verified Contact, Mailed Packet, Follow-up Done
+       - Multiline textarea: Notes
+       - Pre-fill with parsed values, but fields must remain editable after save.
+       - Save to person_dir/person.pdf
+   - Update output/index.csv and output/index.json (append or upsert by slug).
+   - Log to output/run.log with row-level warnings and final summary counts.
+   - Print console summary at the end: totals, included, excluded (denylist), exported, skipped_no_name, address_parse_warnings, and the path to index files.
+4) Create config/names_filter.txt if missing with comment header:
+   # One name per line. Accepts “First Last”, “Last, First”, or just last name.
+   # Example:
+   # Jane Doe
+   # Doe, John
+   # Rodriguez
+5) Create/ensure config/exclude_names.txt exists and contains:
+   # Names containing these tokens are always excluded (case-insensitive).
+   Claudette
+6) scripts/run_split.sh:
+   #!/usr/bin/env bash
+   set -euo pipefail
+   python3 scripts/split_people.py --csv "data/contacts.csv" --names "config/names_filter.txt" --out "output"
+
+# Acceptance test (must pass on rerun)
+- Given data/contacts.csv and at least one matching name in config/names_filter.txt:
+  * For each included (and not excluded) person: output/selected_people/<slug>/ contains README.md, data.json, contact.vcf, address.txt, source_row.csv, person.pdf
+  * Global: output/index.csv, output/index.json, output/run.log exist and are updated
+  * Console prints the summary with counts and index file paths
+- Verify that any person whose name includes “Claudette” is excluded even if present in names_filter.txt.
+
+# Final actions
+- Create/overwrite all specified files.
+- Show me: the created file tree, the exact command to run, and a short success summary (or a precise error and how to fix, e.g., missing CSV or names list).

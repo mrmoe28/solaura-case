@@ -1,0 +1,2 @@
+# Names containing these tokens are always excluded (case-insensitive).
+Claudette

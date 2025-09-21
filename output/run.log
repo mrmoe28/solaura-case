@@ -1,0 +1,18 @@
+2025-09-21 10:33:41,112 - INFO - Loaded 5 inclusion names
+2025-09-21 10:33:41,112 - INFO - Loaded 1 exclusion tokens
+2025-09-21 10:33:41,116 - INFO - Processing 99 rows from data/contacts.csv
+2025-09-21 10:33:41,127 - INFO - Exported: Tom Whatley -> output/selected_people/tom-whatley
+2025-09-21 10:33:41,133 - INFO - Exported: Nick Mueller -> output/selected_people/nick-mueller
+2025-09-21 10:33:41,138 - INFO - Exported: Jerome Mitchell -> output/selected_people/jerome-mitchell
+2025-09-21 10:33:41,143 - INFO - Exported: Kim Munie -> output/selected_people/kim-munie
+2025-09-21 10:33:41,148 - INFO - Exported: Linda Daniels -> output/selected_people/linda-daniels
+2025-09-21 10:33:41,153 - INFO - ============================================================
+2025-09-21 10:33:41,153 - INFO - PROCESSING COMPLETE
+2025-09-21 10:33:41,153 - INFO - Total rows: 99
+2025-09-21 10:33:41,153 - INFO - Matched inclusion filter: 5
+2025-09-21 10:33:41,153 - INFO - Excluded by denylist: 0
+2025-09-21 10:33:41,153 - INFO - Exported: 5
+2025-09-21 10:33:41,153 - INFO - Skipped (no name): 0
+2025-09-21 10:33:41,153 - INFO - Address parse warnings: 0
+2025-09-21 10:33:41,153 - INFO - Index files: output/index.json, output/index.csv
+2025-09-21 10:33:41,153 - INFO - ============================================================

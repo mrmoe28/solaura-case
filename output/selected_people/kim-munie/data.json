@@ -1,0 +1,38 @@
+{
+  "full_name": "Kim Munie",
+  "name": {
+    "first": "Kim",
+    "middle": "",
+    "last": "Munie",
+    "suffix": ""
+  },
+  "company": "",
+  "email": "",
+  "phone": "",
+  "system_id": "",
+  "address": {
+    "street": "",
+    "city": "Smyrna",
+    "state": "",
+    "postal_code": "",
+    "country": "US"
+  },
+  "source": {
+    "csv_path": "data/contacts.csv",
+    "row_number": 5,
+    "raw": {
+      "System Name": "Kim Munie",
+      "Status": "Normal",
+      "Status Since": "06/08/2025 02:53 PM EDT",
+      "City": "Smyrna",
+      "State/Prov": "GA",
+      "Energy Produced - Today": "0",
+      "Energy Produced - Lifetime": "8014551",
+      "Connection": "Wi-Fi",
+      "IQ Meter Collar": "0",
+      "Collar Installation Status": "Not Applicable",
+      "FV Status": "Not Done",
+      "IQ Energy Router": "False"
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "full_name": "Linda Daniels",
+  "name": {
+    "first": "Linda",
+    "middle": "",
+    "last": "Daniels",
+    "suffix": ""
+  },
+  "company": "",
+  "email": "",
+  "phone": "",
+  "system_id": "",
+  "address": {
+    "street": "",
+    "city": "Lafayette",
+    "state": "",
+    "postal_code": "",
+    "country": "US"
+  },
+  "source": {
+    "csv_path": "data/contacts.csv",
+    "row_number": 6,
+    "raw": {
+      "System Name": "Linda Daniels",
+      "Status": "Normal",
+      "Status Since": "09/18/2025 05:27 AM EDT",
+      "City": "LaFayette",
+      "State/Prov": "GA",
+      "Energy Produced - Today": "0",
+      "Energy Produced - Lifetime": "16365214",
+      "Connection": "Cellular",
+      "IQ Meter Collar": "0",
+      "Collar Installation Status": "Not Applicable",
+      "FV Status": "Not Done",
+      "IQ Energy Router": "False"
+    }
+  }
+}

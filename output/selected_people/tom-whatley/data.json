@@ -1,0 +1,38 @@
+{
+  "full_name": "Tom Whatley",
+  "name": {
+    "first": "Tom",
+    "middle": "",
+    "last": "Whatley",
+    "suffix": ""
+  },
+  "company": "",
+  "email": "",
+  "phone": "",
+  "system_id": "",
+  "address": {
+    "street": "",
+    "city": "Bainbridge",
+    "state": "",
+    "postal_code": "",
+    "country": "US"
+  },
+  "source": {
+    "csv_path": "data/contacts.csv",
+    "row_number": 2,
+    "raw": {
+      "System Name": "Tom Whatley",
+      "Status": "Normal",
+      "Status Since": "11/01/2024 01:40 AM EDT",
+      "City": "Bainbridge",
+      "State/Prov": "GA",
+      "Energy Produced - Today": "",
+      "Energy Produced - Lifetime": "5137386",
+      "Connection": "Wi-Fi",
+      "IQ Meter Collar": "0",
+      "Collar Installation Status": "Not Applicable",
+      "FV Status": "Not Done",
+      "IQ Energy Router": "False"
+    }
+  }
+}

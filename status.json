@@ -1,0 +1,36 @@
+{
+  "project": "Enphase Energy Dashboard Crawler",
+  "primary_claude": {
+    "status": "IN_PROGRESS",
+    "current_task": "Setting up simplified crawler without pandas",
+    "last_updated": "2024-01-15T10:30:00Z",
+    "files_created": [
+      "enphase_crawler.py",
+      "enphase_advanced_crawler.py", 
+      "test_crawler.py",
+      "requirements_crawler.txt",
+      "requirements_simple.txt",
+      "setup_crawler.sh",
+      "README_CRAWLER.md",
+      "CLAUDE_COORDINATION.md"
+    ],
+    "issues": [
+      "Pandas installation failed due to Python 3.13 compatibility",
+      "Created simplified version without pandas dependency"
+    ],
+    "next_steps": [
+      "Install simplified dependencies",
+      "Test crawler functionality",
+      "Run actual data extraction"
+    ]
+  },
+  "external_claude": {
+    "status": "UNKNOWN",
+    "current_task": "PENDING_UPDATE",
+    "last_updated": "PENDING_UPDATE",
+    "files_modified": [],
+    "notes": "Working in parallel terminal - needs to update status"
+  },
+  "project_status": "ACTIVE",
+  "coordination_needed": true
+}

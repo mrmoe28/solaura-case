@@ -1,0 +1,13 @@
+{
+  "timestamp": "2025-09-21T10:46:08.796302",
+  "directory": "/Users/ekodevapps/Desktop/Solaura Case Files",
+  "files": {
+    "enphase_crawler.py": true,
+    "enphase_advanced_crawler.py": true,
+    "test_crawler.py": true,
+    "requirements_simple.txt": true,
+    "CLAUDE_COORDINATION.md": true
+  },
+  "output_dir_exists": true,
+  "venv_exists": true
+}

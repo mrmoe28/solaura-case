@@ -1,0 +1,38 @@
+{
+  "full_name": "Jerome Mitchell",
+  "name": {
+    "first": "Jerome",
+    "middle": "",
+    "last": "Mitchell",
+    "suffix": ""
+  },
+  "company": "",
+  "email": "",
+  "phone": "",
+  "system_id": "",
+  "address": {
+    "street": "",
+    "city": "Powder Springs",
+    "state": "",
+    "postal_code": "",
+    "country": "US"
+  },
+  "source": {
+    "csv_path": "data/contacts.csv",
+    "row_number": 4,
+    "raw": {
+      "System Name": "Jerome Mitchell",
+      "Status": "System Production Issue",
+      "Status Since": "10/04/2024 11:22 PM EDT",
+      "City": "Powder Springs",
+      "State/Prov": "GA",
+      "Energy Produced - Today": "0",
+      "Energy Produced - Lifetime": "14657",
+      "Connection": "Wi-Fi",
+      "IQ Meter Collar": "0",
+      "Collar Installation Status": "Not Applicable",
+      "FV Status": "Not Done",
+      "IQ Energy Router": "False"
+    }
+  }
+}

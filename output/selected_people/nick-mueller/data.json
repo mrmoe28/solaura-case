@@ -1,0 +1,38 @@
+{
+  "full_name": "Nick Mueller",
+  "name": {
+    "first": "Nick",
+    "middle": "",
+    "last": "Mueller",
+    "suffix": ""
+  },
+  "company": "",
+  "email": "",
+  "phone": "",
+  "system_id": "",
+  "address": {
+    "street": "",
+    "city": "Guyton",
+    "state": "",
+    "postal_code": "",
+    "country": "US"
+  },
+  "source": {
+    "csv_path": "data/contacts.csv",
+    "row_number": 3,
+    "raw": {
+      "System Name": "Nick Mueller",
+      "Status": "Gateway Not Reporting",
+      "Status Since": "08/01/2025 03:08 AM EDT",
+      "City": "Guyton",
+      "State/Prov": "GA",
+      "Energy Produced - Today": "",
+      "Energy Produced - Lifetime": "97109",
+      "Connection": "Wi-Fi",
+      "IQ Meter Collar": "0",
+      "Collar Installation Status": "Not Applicable",
+      "FV Status": "Not Done",
+      "IQ Energy Router": "False"
+    }
+  }
+}
